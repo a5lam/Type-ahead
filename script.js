@@ -5,5 +5,23 @@ const cities = [];
 
 fetch(endpoint)
     .then(blob => blob.json())
-    .then(data => cities.push(...data));
+    .then(data => cities.push(...data))
 
+function findMatches(wordToMatch, cities) {
+    return cities.filter(place => {
+        // here we find if any city or state match with what was search
+        const regex = new RegExp(wordToMatch, 'gi');
+        return  place.city.match(regex) || place.state.match(regex)
+    });
+}
+
+function displayMatches(){
+    const matchArray = findMatches(this.value, cities);
+    console.log(matchArray);
+}
+
+const searchInput = document.querySelector('.search');
+const suggestions = document.querySelector('.suggestions');
+
+searchInput.addEventListener('change', displayMatches);
+searchInput.addEventListener('keyup', displayMatches);
