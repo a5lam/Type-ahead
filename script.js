@@ -21,8 +21,8 @@ function numberWithCommas(x) {
 
 function displayMatches(){
     const matchArray = findMatches(this.value, cities);
-    console.log(matchArray.length);
-    // if matchArray.length() != 0{
+    
+    if (matchArray.length != 0){
         const html = matchArray.map(place => {
             const regex = new RegExp(this.value, 'gi');
             const cityName = place.city.replace(regex, `<span class="hl">${this.value}</span>`);
@@ -35,7 +35,14 @@ function displayMatches(){
             `;
         }).join('');
         suggestions.innerHTML = html;
-    // };
+    }
+    else{
+        
+        suggestions.innerHTML = `
+        <li>Filter for a city</li>
+        <li>or a state</li>
+        `;
+    }
 }
 
 const searchInput = document.querySelector('.search');
